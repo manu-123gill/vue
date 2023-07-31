@@ -32,8 +32,158 @@ const users = [
 </template>
 ```
 
- By leveraging object destructuring in Vue.js, we can directly access the properties of an object, simplifying our code and making it more readable.
+ By leveraging object destructuring in Vue.js, we can directly access the properties of an object, simplifying our code and making it more readable.This approach also helps reduce redundancy and enhances the overall maintainability of the codebasewith objects containing numerous properties, eliminating 
 
-This approach also helps reduce redundancy and enhances the overall maintainability of the codebasewith objects containing numerous properties, eliminating 
+
+ ## 2. Detect changes in values or properties using watch
+
+Detecting changes in values or properties is a common requirement in many applications. In Vue.js, we can leverage the watch API to monitor changes and respond accordingly to perform necessary actions.
+
+The watch property allows us to create watchers that observe specific reactive properties or variables within our component. When these properties change, the corresponding watcher function is triggered, enabling us to handle the changes as needed
+```sh
+<template>
+  <div>
+    <p>Guess a Number (Enter a number):</p>
+    <input v-model="guess" type="number" />
+    <p>{{ answer }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref, watch } from 'vue';
+
+const guess = ref();
+const answer = ref(''); // Initializing the answer as an empty string
+
+// watch works directly on a ref
+watch(guess, (newGuess, oldGuess) => {
+  if (newGuess !== '') {
+    if (newGuess % 2 === 0) {
+      answer.value = 'Your guess is an even number.';
+    } else {
+      answer.value = 'Your guess is an odd number.';
+    }
+  } else {
+    answer.value = ''; // Clear the answer when the guess is empty
+  }
+});
+</script>
+
+
+
+```
+## 3. Access child component properties
+
+In certain scenarios, there might arise the need to access component properties from other components outside of our component’s scope. While this approach may not be a common practice and could lead to tight coupling or potential issues if not managed carefully, it is possible to access component properties like functions and variables from external components.
+
+## Child Component
+
+```sh
+<div>
+  <h1>Child component</h1> 
+</div>
+<script>
+export default {
+methods:{
+  doSomething(){
+    // do smething
+  }}
+</script>
+```
+
+
+## Parent Component
+```sh
+<div id="app">
+  <ChildComponent ref="childComponent" />
+</div>
+<script>
+import ChildComponent from './ChildComponent'
+export default {
+  components: {
+   ChildComponent
+  },
+  mounted () {
+    //invoke doSomething function on child component
+    this.$refs.childComponent.doSomething();
+  }
+}
+</script>
+```
+
+## Pass an object as a prop in Vuejs
+
+```sh
+<script setup>
+import UserProfile from './UserProfile.vue';
+
+const users = [
+  {
+    name: "John Doe",
+    id: "12345",
+    email: "john.doe@example.com",
+    age: 30
+  },
+  {
+    name: "Jane Smith",
+    id: "67890",
+    email: "jane.smith@example.com",
+    age: 25
+  }
+];
+</script>
+
+<template>
+  <div>
+    <h2>Users Profile Details</h2>
+    <UserProfile v-for="(user, index) in users" 
+      :key="index" 
+      :name="user.name" 
+      :id="user.id" 
+      :email="user.email" 
+      :age="user.age" 
+    />
+  </div>
+</template>
+
+
+```
+## We can do this
+```sh
+<script setup>
+import UserProfile from './UserProfile.vue';
+
+const users = [
+  {
+    name: "John Doe",
+    id: "12345",
+    email: "john.doe@example.com",
+    age: 30
+  },
+  {
+    name: "Jane Smith",
+    id: "67890",
+    email: "jane.smith@example.com",
+    age: 25
+  }
+];
+</script>
+
+<template>
+  <div>
+    <h2>Users Profile Details</h2>
+    <UserProfile v-for="(user, index) in users" 
+      :key="index" 
+      :user="user"  
+    />
+
+  </div>
+</template>
+```
+## Utilize Nuxt.js for Server-Side Rendering (SSR)
+
+One of the key benefits of Nuxt.js is its ability to handle Server-Side Rendering (SSR) out of the box. SSR enables your application to generate HTML on the server side and send a fully rendered page to the client, which can significantly improve the initial load time and SEO performance.
+
+By leveraging Nuxt.js’s SSR capabilities, you can enhance the user experience by delivering faster initial page loads, improving SEO, and providing better accessibility for users and search engines. Keep in mind that SSR can have some implications on server load, so consider its use case in conjunction with your project’s specific requirements.
 
 the need to use dot notation repeatedly, such as user.name, user.email, user.age.
