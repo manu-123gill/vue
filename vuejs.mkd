@@ -111,7 +111,7 @@ export default {
 </script>
 ```
 
-## Pass an object as a prop in Vuejs
+## Pass an object as a proper in Vuejs
 
 ```sh
 <script setup>
