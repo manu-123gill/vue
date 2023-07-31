@@ -32,7 +32,7 @@ const users = [
 </template>
 ```
 
-## By leveraging object destructuring in Vue.js, we can directly access the properties of an object, simplifying our code and making it more readable.
+ By leveraging object destructuring in Vue.js, we can directly access the properties of an object, simplifying our code and making it more readable.
 
 This approach also helps reduce redundancy and enhances the overall maintainability of the codebasewith objects containing numerous properties, eliminating 
 
